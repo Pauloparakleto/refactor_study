@@ -7,7 +7,7 @@ function statement(invoice, plays) {
     for(let perf of invoice.performances){
         const play = plays[perf.playID];
         let thisAmount = 0;
-        thisAmount = amountFor(play, perf);
+        thisAmount = amountFor(perf, play);
 
         // Add volume credits
         volumeCredits += Math.max(perf.audience - 30, 0);
