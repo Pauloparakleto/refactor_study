@@ -14,7 +14,7 @@ function statement(invoice, plays) {
         // Add extra credit for every ten comedy attendees
         if ("comedy" === play.type) {
             volumeCredits += Math.floor(perf.audience / 5);
-        };
+        }
 
         //Print line for this order
         result += ` ${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
@@ -27,22 +27,22 @@ function statement(invoice, plays) {
     return result;
 }
 
-function amountFor(play, perf) {
+function amountFor(aPerformance, play) {
     let result = 0;
 
     switch (play.type) {
         case "tragedy":
             result = 40000;
-            if (perf.audience > 30) {
-                result += 1000 * (perf.audience - 30);
+            if (aPerformance.audience > 30) {
+                result += 1000 * (aPerformance.audience - 30);
             }
             break;
         case "comedy":
             result = 30000;
-            if (perf.audience > 20) {
-                result += 10000 + 500 * (perf.audience - 20);
+            if (aPerformance.audience > 20) {
+                result += 10000 + 500 * (aPerformance.audience - 20);
             }
-            result += 300 * (perf.audience);
+            result += 300 * (aPerformance.audience);
             break;
         default:
             throw new Error(`unknown type: ${play.type}`);
