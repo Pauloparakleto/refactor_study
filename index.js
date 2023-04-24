@@ -1,3 +1,7 @@
+function playFor(plays, perf) {
+    return plays[perf.playID];
+}
+
 function statement(invoice, plays) {
     let totalAmount = 0;
     let volumeCredits = 0;
@@ -5,7 +9,7 @@ function statement(invoice, plays) {
     const format = new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format;
 
     for(let perf of invoice.performances){
-        const play = plays[perf.playID];
+        const play = playFor(plays, perf);
         let thisAmount = 0;
         thisAmount = amountFor(perf, play);
 
