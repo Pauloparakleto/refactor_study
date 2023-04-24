@@ -11,17 +11,17 @@ function statement(invoice, plays) {
     for(let perf of invoice.performances){
         const play = playFor(plays, perf);
         let thisAmount = 0;
-        thisAmount = amountFor(perf, play);
+        thisAmount = amountFor(perf, playFor(plays, perf));
 
         // Add volume credits
         volumeCredits += Math.max(perf.audience - 30, 0);
         // Add extra credit for every ten comedy attendees
-        if ("comedy" === play.type) {
+        if ("comedy" === playFor(plays, perf).type) {
             volumeCredits += Math.floor(perf.audience / 5);
         }
 
         //Print line for this order
-        result += ` ${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
+        result += ` ${playFor(plays, perf).name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
         totalAmount += thisAmount;
     }
 
