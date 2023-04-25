@@ -9,7 +9,6 @@ function statement(invoice, plays) {
     const format = new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format;
 
     for(let perf of invoice.performances){
-        const play = playFor(plays, perf);
         let thisAmount = 0;
         thisAmount = amountFor(perf, playFor(plays, perf));
 
