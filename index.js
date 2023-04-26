@@ -1,5 +1,5 @@
-function playFor(plays, perf) {
-    return plays[perf.playID];
+function playFor(plays, aPerformance) {
+    return plays[aPerformance.playID];
 }
 
 function statement(invoice, plays) {
@@ -8,20 +8,21 @@ function statement(invoice, plays) {
     let result = `Statement for ${invoice.customer}\n`;
     const format = new Intl.NumberFormat("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2}).format;
 
-    for(let perf of invoice.performances){
-        let thisAmount = 0;
-        thisAmount = amountFor(perf, playFor(plays, perf));
-
-        // Add volume credits
+    function creditsFor(perf) {
         volumeCredits += Math.max(perf.audience - 30, 0);
         // Add extra credit for every ten comedy attendees
         if ("comedy" === playFor(plays, perf).type) {
             volumeCredits += Math.floor(perf.audience / 5);
         }
+    }
+
+    for(let perf of invoice.performances){
+        // Add volume credits
+        creditsFor(perf);
 
         //Print line for this order
-        result += ` ${playFor(plays, perf).name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
-        totalAmount += thisAmount;
+        result += ` ${playFor(plays, perf).name}: ${format(amountFor(perf, playFor(plays, perf))/100)} (${perf.audience} seats)\n`;
+        totalAmount += amountFor(perf, playFor(plays, perf));
     }
 
     result += `Amount owed is ${format(totalAmount/100)}\n`;
