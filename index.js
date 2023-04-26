@@ -1,5 +1,5 @@
-function playFor(plays, perf) {
-    return plays[perf.playID];
+function playFor(plays, aPerformance) {
+    return plays[aPerformance.playID];
 }
 
 function statement(invoice, plays) {
